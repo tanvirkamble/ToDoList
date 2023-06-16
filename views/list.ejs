@@ -8,15 +8,12 @@
 
   <div class="box">
 
-
     <% newListItems.forEach( newItem=> { %>
       <form action="/delete" method="post">
         <div class="item">
           <input type="checkbox" name='checkedbox' value="<%= newItem._id %>" onChange='this.form.submit()'>
-          <!-- <input type="checkbox" name='checkedbox' value="<%= newItem._id %>,<%= newItem.name %>" -->
           <p>
             <%= newItem.name %>
-              <!-- AS previously it was just a para but now that it is coneected to the db it shocase all the field names in the document/obj so need to mention which field value is needed here for eg. 'name'  -->
           </p>
         </div>
         <input type="hidden" name="listName" value="<%= listTitle %>"></input>
@@ -30,13 +27,3 @@
   </div>
 
   <%- include("footer") -%>
-
-    <!-- <% for (let i=0; i<newListItems.length; i++) { %>
-    <div class="item">
-      <input type="checkbox">
-      <p>
-        <%= newListItems[i].name %> -->
-    <!-- AS previously it was just a para but now that it is coneected to the db it shocase all the field names in the document/obj so need to mention which field value is needed here for eg. 'name'  -->
-    <!--  </p>
-    </div>
-    <% } %> -->
