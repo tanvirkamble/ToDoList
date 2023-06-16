@@ -4,10 +4,7 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const date = require(__dirname + "/date.js");
 const mongoose = require('mongoose');
-//const { name } = require("ejs");
-const _ = require('lodash');
-
-//   
+const _ = require('lodash');   
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -15,12 +12,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-// const items = ["Buy Food", "Cook Food", "Eat Food"];
- 
-
 //mongoose.connect('mongodb://127.0.0.1:27017/ToDoListDB')
-mongoose.connect('mongodb+srv://tanvirkamble:tanvir123@todolist.6gjeztn.mongodb.net/ToDoListDB')//password:tanvir123
-
+mongoose.connect('mongodb+srv://tanvirkamble:tanvir123@todolist.6gjeztn.mongodb.net/ToDoListDB')
 .then( () => {
     console.log('database connected');
     })
@@ -50,26 +43,6 @@ mongoose.connect('mongodb+srv://tanvirkamble:tanvir123@todolist.6gjeztn.mongodb.
   };
   const CustomItem = mongoose.model('customitem', CustomItemSchema);
 
-  //const items = [];
-// app.get("/", async function(req, res) {
-//   const day = date.getdate();
-  
-//   await Item.find({})
-//   .then( async (items) => {
-//      if (items.length === 0) {
-//         await Item.insertMany(Defaultitems)
-        //  .then( () => console.log('SUCCESFULLY ADDED DEFAULT ITEMS IN DB'))
-        //  .catch(err => {
-        //  console.log('OH NO ERROR WHILE ADDING DEFAULT ITEMS');
-        //  console.log(err);
-//          }),
-//          res.redirect('/')  
-//       } else {
-//          res.render("list", {listTitle: day, newListItems: items}); 
-//         }
-//    }) 
-// });
-
 app.get("/", async function (req, res) {
   const foundItems = await Item.find({});
   const day = date.getdate();
@@ -78,54 +51,9 @@ app.get("/", async function (req, res) {
     
     res.redirect("/");
   } else {
-    // Item.findByIdAndDelete([Defaultitems._id]);
     res.render("list", { listTitle: day , newListItems: foundItems });
   }
 });
-
-
-
-
-
-// app.get('/:CustomListname', (req,res) => {
-//   // res.send(req.params.newList);
-//   const CustomListname = req.params.CustomListname;
- 
-
-
-//   CustomItem.findOne({listTitle : CustomListname})
-//   .then( function(foundlist) {
-//     if (!foundlist) {
-
-//          // create a list
-//          console.log('DOESNT EXISTS!!');
-        
-//         const customlistitem = new CustomItem({
-//           list_name : CustomListname,
-//           itemname : Defaultitems  
-//         });
-//         //CustomItem.insertMany(customlistitem)
-//         //CustomItem.collection.insertOne(customlistitem);
-//         //CustomItem.create(customlistitem)
-//         customlistitem.save()
-//         .then(console.log('saved!'))
-   
-//         res.redirect('/'+ CustomListname);
-//       }
-//       else {
-//         //show list
-//         console.log('EXISTS!!');
-//         console.log(x);
-//         //res.render("list", {listTitle: CustomListname , newListItems: customlistitem.itemname});
-//         res.render("list", {listTitle:foundlist.list_name , newListItems:  foundlist.itemname});    
-//         // res.redirect('/'+ CustomListname);
-//       }
-//     })
-//   .catch( (err) => {
-//     console.log('ERROR!!');
-//     console.log(err);
-//   }) 
-// })
 
 app.get("/:CustomListname",async function(req,res){
   const CustomListname = _.capitalize(req.params.CustomListname);
@@ -161,7 +89,6 @@ app.get("/:CustomListname",async function(req,res){
 app.post("/", async function(req, res){
 
   const itemName = req.body.newItem;
-  // new item to be added useing the '+' in our pg 
   const listName = req.body.list
   const newitem = new Item({
     name : itemName
@@ -170,18 +97,11 @@ app.post("/", async function(req, res){
    const day = date.getdate();
 
    if ( listName === day) {
-    //Item.insertMany(newitem);
+   
     await Item.create(newitem)
     res.redirect('/');
    } 
    else {
-    // await CustomItem.findOne({name : listName}).then((foundList) => {
-    //   //foundList.items.push(newitem);
-    //   foundList.itemname.push(newitem);  
-    //   foundList.save();
-    //   res.redirect('/' + listName) })
-   //----------------------------------
-
     // Item is to be added to a custom list
     try {
       let foundList = await CustomItem.findOne({ list_name: listName }).exec();
