@@ -14,7 +14,7 @@ app.use(express.static("public"));
 
 //mongoose.connect('mongodb://127.0.0.1:27017/ToDoListDB')
 //mongoose.connect('mongodb+srv://tanvirkamble:tanvir123@todolist.6gjeztn.mongodb.net/ToDoListDB')
-mongoose.connect('mongodb+srv://tanvirkamble123:tanvir123@cluster0.ughuea1.mongodb.net/blogDB')
+mongoose.connect('mongodb+srv://tanvirkamble123:tanvir123@cluster0.ughuea1.mongodb.net/ToDoListDB')
 
 .then( () => {
     console.log('database connected');
