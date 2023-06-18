@@ -34,7 +34,7 @@ Usage
 - On the home page, you will see the default to-do list with pre-populated items.
 - To add a new item, enter the task in the input field and click the "+" button.
 - To mark an item as completed, click the checkbox next to it.
-- To create a custom to-do list, enter a unique list name in the input field on the home page and press Enter.
+- To create a custom to-do list, enter a unique list name in the input field on the home page and press Enter.(add '/' to the url and then write the name of your desired list)
 - You can then manage the items in the custom list using the same actions as the default list.
 
  Feel free to explore the ToDoList web app and enhance your productivity with effective task management!
